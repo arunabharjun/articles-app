@@ -1,4 +1,4 @@
-const { GithubIcon } = require('../assets/icons');
+import { GithubIcon } from "../../assets/icons";
 
 const NavBar = () => {
 	return (
