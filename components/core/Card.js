@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import moment from 'moment';
 import RandomPrice from './RandomPrice';
 import LikeButton from './LikeButton';
+import { shrinkHeading } from '../../helpers/articles';
 
 export const ArticleCard = ({ children }) => {
 	/**
@@ -18,6 +20,11 @@ export const ArticleCard = ({ children }) => {
 					<div className='article-type'>
 						<p className=''>{type}</p>
 					</div>
+					<div className='overlay'>
+						<a href={url} target='_blank' rel='noopener noreferrer'>
+							<button>read</button>
+						</a>
+					</div>
 				</div>
 			</React.Fragment>
 		);
@@ -28,10 +35,10 @@ export const ArticleCard = ({ children }) => {
 			<React.Fragment>
 				<div className='article-content'>
 					<a href={url} target='_blank' rel='noopener noreferrer'>
-						<h3>{headline}</h3>
+						<h3>{shrinkHeading(headline)}</h3>
 					</a>
 					<p className='article-info'>
-						{moment(time).fromNow()}
+						{moment(time).format('MMMM DD | h:mm A')}
 						<br />
 						{source}
 					</p>

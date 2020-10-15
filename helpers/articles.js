@@ -12,3 +12,8 @@ export const filterArticleData = (article) => {
 
 	return res;
 };
+
+export const shrinkHeading = (heading) => {
+	if (heading.length > 50) return heading.substring(0, 50) + '...';
+	else return heading;
+};
