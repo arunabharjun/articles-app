@@ -14,7 +14,11 @@ export const ArticleCard = ({ children }) => {
 				<div
 					className='banner-img'
 					style={{ backgroundImage: `url(${image})` }}
-				/>
+				>
+					<div className='article-type'>
+						<p className=''>{type}</p>
+					</div>
+				</div>
 			</React.Fragment>
 		);
 	};

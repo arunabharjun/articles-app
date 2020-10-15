@@ -5,8 +5,10 @@
 	--clr: #111111;
 	--clr-muted: #504f4f;
 	--clr-muted-max: #8a8a8a;
+	--clr-badge: rgba(255, 255, 255, 0.85);
 	--blue: #0058bd;
 	--red: rgb(248, 36, 64);
+	--badge: rgb(180, 0, 24);
 	--icon-fill: #e2e2e2;
 	--nav-bg: #fff;
 	--nav-shadow: 0 0px 5px 3px rgba(0, 0, 0, 0.08);
@@ -126,6 +128,24 @@ footer {
 			width: 100%;
 			height: 200px;
 			background-size: cover;
+			position: relative;
+			.article-type {
+				position: absolute;
+				right: 10px;
+				top: 10px;
+				background-color: var(--badge);
+				padding: 0px 8px 0 8px;
+				height: 23px;
+				border-radius: 3px;
+				p {
+					text-transform: uppercase;
+					font-size: 85%;
+					position: relative;
+					top: 2px;
+					color: var(--clr-badge);
+					font-weight: 500;
+				}
+			}
 		}
 
 		.article-content {
