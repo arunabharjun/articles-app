@@ -56,6 +56,9 @@ export const ArticleCard = ({ children }) => {
 		);
 	};
 
+	/**
+     * The full card
+     */
 	return (
 		<React.Fragment>
 			<div className='article-card'>
