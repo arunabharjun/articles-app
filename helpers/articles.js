@@ -1,5 +1,8 @@
 import { IMAGE_API } from '../config';
 
+/**
+ * Function to filter the article response
+ */
 export const filterArticleData = (article) => {
 	const res = {
 		headline: article.headline.main,
@@ -13,6 +16,9 @@ export const filterArticleData = (article) => {
 	return res;
 };
 
+/**
+ * Shrinking the headline to max 50 characters
+ */
 export const shrinkHeading = (heading) => {
 	if (heading.length > 50) return heading.substring(0, 50) + '...';
 	else return heading;
