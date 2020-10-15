@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 // Theme variables
 * {
-	--bg: #f1f1f1;
+	--bg: #fafafa;
 	--clr: #111111;
 	--clr-muted: #504f4f;
-	--clr-muted-max: #a09f9f;
+	--clr-muted-max: #8a8a8a;
 	--blue: #0058bd;
+	--red: rgb(248, 36, 64);
 	--icon-fill: #e2e2e2;
 	--nav-bg: #fff;
 	--nav-shadow: 0 0px 5px 3px rgba(0, 0, 0, 0.08);
-	--card-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.05);
+	--card-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.04);
 	--navHeight: 56px;
 	--transition-duration: all 0.2s ease;
 }
@@ -18,6 +18,18 @@
 // utilities
 .accent-clr {
 	color: var(--blue);
+}
+
+.rupee-icon {
+	font-size: 95%;
+}
+
+.flex-box {
+	display: flex;
+}
+
+.flex-space-bt {
+	justify-content: space-between;
 }
 
 // class definitions
@@ -36,14 +48,21 @@ main {
 * {
 	color: var(--clr);
 	box-sizing: border-box;
-	font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, Segoe UI,
-		Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+	font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+		Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
 		sans-serif;
+	button {
+		padding: 0;
+		margin: 0;
+		border: none;
+		background-color: transparent;
+		outline: none !important;
+	}
 }
 
 a {
 	color: inherit;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 footer {
@@ -60,13 +79,14 @@ footer {
 .nav-bar {
 	position: fixed;
 	width: 100%;
+	z-index: 10;
 
 	.nav-body {
 		background-color: var(--nav-bg);
 		width: 100%;
 		box-shadow: var(--nav-shadow);
 		height: var(--navHeight);
-		padding: 13px 0 0 0;
+		padding: 14px 0 0 0;
 
 		.container {
 			display: flex;
@@ -75,12 +95,70 @@ footer {
 
 		.brand-name {
 			font-weight: 600;
-			font-size: 110%;
+			font-size: 115%;
 			color: var(--clr-muted);
 		}
 		a {
 			svg {
 				fill: var(--icon-fill);
+			}
+		}
+	}
+}
+
+.articles-container {
+	padding-top: 5px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.article-card {
+	.article-card-body {
+		background-color: var(--nav-bg);
+		width: 100%;
+		height: 100%;
+		border-radius: 6px;
+		box-shadow: var(--card-shadow);
+		overflow: hidden;
+
+		.banner-img {
+			width: 100%;
+			height: 200px;
+			background-size: cover;
+		}
+
+		.article-content {
+			padding: 15px 15px 0px 15px;
+			h3 {
+				font-size: 102%;
+				font-weight: 600;
+			}
+
+			.article-info {
+				color: var(--clr-muted-max);
+				font-size: 85%;
+			}
+
+			.article-price {
+				font-size: 85%;
+				font-weight: 500;
+			}
+
+			.article-like-button {
+				position: relative;
+				top: -5px;
+			}
+		}
+	}
+}
+
+.like-button {
+	button {
+		.article-liked {
+			svg {
+				fill: var(--red);
+				stroke: none;
 			}
 		}
 	}
@@ -99,6 +177,11 @@ footer {
 	.nav-bar {
 		bottom: 0;
 		left: 0;
+	}
+
+	.article-card {
+		width: 100%;
+		padding: 10px 0;
 	}
 }
 
@@ -122,5 +205,10 @@ footer {
 	.nav-bar {
 		top: 0;
 		left: 0;
+	}
+
+	.article-card {
+		padding: 10px;
+		width: calc(100% / 3);
 	}
 }

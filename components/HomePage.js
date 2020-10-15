@@ -111,7 +111,11 @@ const HomePage = () => {
 	return (
 		<React.Fragment>
 			<div className='container'>
-				{!loading && showArticles(articles)}
+				{!loading && (
+					<div className='articles-container'>
+						{showArticles(articles)}
+					</div>
+				)}
 				{/* {!loading && JSON.stringify(articles[0])} */}
 				{loading && <p>Loading...</p>}
 			</div>

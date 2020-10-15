@@ -1,4 +1,4 @@
-import { GithubIcon } from "../../assets/icons";
+import { GithubIcon } from '../../assets/Icons';
 
 const NavBar = () => {
 	return (
@@ -13,7 +13,6 @@ const NavBar = () => {
 							href='https://github.com/arunabharjun/articles-app'
 							target='_blank'
 							rel='noopener noreferrer'
-							
 						>
 							<GithubIcon />
 						</a>

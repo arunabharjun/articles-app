@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
+    "moment": "^2.29.1",
     "next": "9.5.5",
     "node-sass": "^4.14.1",
     "react": "16.14.0",
