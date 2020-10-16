@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { DEFAULT_QUERY } from '../config';
 import { getArticles } from '../helpers/api';
 import { filterArticleData } from '../helpers/articles';
@@ -25,7 +25,7 @@ const HomePage = () => {
 
 	/**
 	 * State to check status of
-	 * loading, error & window bottom was reached
+	 * loading and error 
 	 */
 	const [
 		error,
@@ -35,57 +35,33 @@ const HomePage = () => {
 		loading,
 		setLoading
 	] = useState(false);
-	const [
-		bottom,
-		setBottom
-	] = useState(false);
+
+	/**
+	 * Utility function to paginate
+	 */
+	const observer = useRef();
+	const lastArticle = useCallback(
+		(node) => {
+			if (loading) return;
+			if (observer.current) observer.current.disconnect();
+			observer.current = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting) {
+					initArticles();
+				}
+			});
+			if (node) observer.current.observe(node);
+		},
+		[
+			loading
+		]
+	);
 
 	useEffect(() => {
 		/**
          * Load articles as soon as page loads
          */
-		window.addEventListener('scroll', () => handleScroll());
 		initArticles();
 	}, []);
-
-	useEffect(
-		() => {
-			/**
-			 * Paginate
-			 */
-			if (loading) return;
-			initArticles();
-		},
-		[
-			bottom
-		]
-	);
-
-	/**
-	 * Utility function to listen for scrolling
-	 */
-	const handleScroll = () => {
-		const windowHeight =
-			'innerHeight' in window
-				? window.innerHeight
-				: document.documentElement.offsetHeight;
-		const body = document.body;
-		const html = document.documentElement;
-		const docHeight = Math.max(
-			body.scrollHeight,
-			body.offsetHeight,
-			html.clientHeight,
-			html.scrollHeight,
-			html.offsetHeight
-		);
-		const windowBottom = windowHeight + window.pageYOffset;
-		if (windowBottom >= docHeight) {
-			setBottom(true);
-		}
-		else {
-			setBottom(false);
-		}
-	};
 
 	/**
      * Utility function to load articles
@@ -148,13 +124,27 @@ const HomePage = () => {
 			<React.Fragment>
 				<div className='articles-container'>
 					{articles.map((article, i) => {
-						return (
-							<div className='article-card' id={i}>
-								<ArticleCard>
-									{filterArticleData(article)}
-								</ArticleCard>
-							</div>
-						);
+						if (articles.length === i + 1) {
+							return (
+								<div
+									ref={lastArticle}
+									className='article-card'
+									key={i}
+								>
+									<ArticleCard>
+										{filterArticleData(article)}
+									</ArticleCard>
+								</div>
+							);
+						}
+						else
+							return (
+								<div className='article-card' id={i}>
+									<ArticleCard>
+										{filterArticleData(article)}
+									</ArticleCard>
+								</div>
+							);
 					})}
 				</div>
 			</React.Fragment>
