@@ -32,17 +32,11 @@ module.exports = {
 
 ## 🔑 Creating your API key from [https://developer.nytimes.com/apis](https://developer.nytimes.com/apis)
 
-1. If you don't already have an account, visit the following link and create one.
+1. If you don't already have an account, visit the following link and create one. [Register - NYT API](https://developer.nytimes.com/accounts/create)
 
-[Register - NYT API](https://developer.nytimes.com/accounts/create)
+2. If you have an account, visit the following link and login. [Login - NYT API](https://developer.nytimes.com/accounts/login)
 
-2. If you have an account, visit the following link and login
-
-[Login - NYT API](https://developer.nytimes.com/accounts/login)
-
-3. Then visit the following link to create a new app
-
-[New APP - NYT API](https://developer.nytimes.com/my-apps/new-app)
+3. Then visit the following link to create a new app. [New APP - NYT API](https://developer.nytimes.com/my-apps/new-app)
 
 4. Fill in all the details as asked
 
@@ -50,9 +44,7 @@ module.exports = {
 
 6. Then press the 'CREATE' button to get the API key.
 
-7. Visit the following link and you will see you app listed there if the app was successfully created
-
-[APP List - NYT API](https://developer.nytimes.com/my-apps)
+7. Visit the following link and you will see you app listed there if the app was successfully created. [APP List - NYT API](https://developer.nytimes.com/my-apps)
 
 8. Find your app in that list and click on it.
 
