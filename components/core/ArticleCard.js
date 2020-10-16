@@ -67,11 +67,9 @@ const ArticleCard = ({ children }) => {
 	const articleCard = () => {
 		return (
 			<React.Fragment>
-				<div className='article-card'>
-					<div className='article-card-body'>
-						{bannerImage()}
-						{articleContent()}
-					</div>
+				<div className='article-card-body'>
+					{bannerImage()}
+					{articleContent()}
 				</div>
 			</React.Fragment>
 		);

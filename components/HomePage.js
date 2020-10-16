@@ -149,9 +149,11 @@ const HomePage = () => {
 				<div className='articles-container'>
 					{articles.map((article, i) => {
 						return (
-							<ArticleCard id={i}>
-								{filterArticleData(article)}
-							</ArticleCard>
+							<div className='article-card' id={i}>
+								<ArticleCard>
+									{filterArticleData(article)}
+								</ArticleCard>
+							</div>
 						);
 					})}
 				</div>
