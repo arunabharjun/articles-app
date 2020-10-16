@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { DEFAULT_QUERY } from '../config';
 import { getArticles } from '../helpers/api';
 import { filterArticleData } from '../helpers/articles';
 import ArticleCard from './core/ArticleCard';
@@ -17,10 +18,14 @@ const HomePage = () => {
 		page,
 		setPage
 	] = useState(0);
+	const [
+		hits,
+		setHits
+	] = useState(0);
 
 	/**
 	 * State to check status of
-	 * loading and error
+	 * loading, error & window bottom was reached
 	 */
 	const [
 		error,
@@ -30,10 +35,6 @@ const HomePage = () => {
 		loading,
 		setLoading
 	] = useState(false);
-
-	/**
-	 * State to check if bottom was reached
-	 */
 	const [
 		bottom,
 		setBottom
@@ -52,7 +53,7 @@ const HomePage = () => {
 			/**
 			 * Paginate
 			 */
-			if (loading || error) return;
+			if (loading) return;
 			initArticles();
 		},
 		[
@@ -60,6 +61,9 @@ const HomePage = () => {
 		]
 	);
 
+	/**
+	 * Utility function to listen for scrolling
+	 */
 	const handleScroll = () => {
 		const windowHeight =
 			'innerHeight' in window
@@ -89,10 +93,11 @@ const HomePage = () => {
 	const initArticles = () => {
 		/**
          * Set loading true before fetching articles
+		 * Reseting errors if any
          */
 		setError(false);
 		setLoading(true);
-		getArticles('india', page)
+		getArticles(DEFAULT_QUERY, page)
 			.then((data) => {
 				if (!data.error && data !== undefined) {
 					/**
@@ -100,16 +105,16 @@ const HomePage = () => {
                      */
 					setArticles([
 						...articles,
-						...data
+						...data.articles
 					]);
+					setPage(page + 1);
+					setHits(Number(data.hits));
 
 					/**
                      * Reset statuses
                      */
 					setError(false);
 					setLoading(false);
-
-					setPage(page + 1);
 				}
 				else {
 					/**
@@ -134,16 +139,58 @@ const HomePage = () => {
 			});
 	};
 
+	/**
+	 * Rendering each article in the
+	 * article card view
+	 */
 	const showArticles = () => {
 		return (
 			<React.Fragment>
-				{articles.map((article, i) => {
-					return (
-						<ArticleCard id={i}>
-							{filterArticleData(article)}
-						</ArticleCard>
-					);
-				})}
+				<div className='articles-container'>
+					{articles.map((article, i) => {
+						return (
+							<ArticleCard id={i}>
+								{filterArticleData(article)}
+							</ArticleCard>
+						);
+					})}
+				</div>
+			</React.Fragment>
+		);
+	};
+
+	/**
+	 * Show error is any
+	 */
+	const showError = () => {
+		return (
+			<React.Fragment>
+				{error &&
+				articles.length < hits && (
+					<ShowError>Something went wrong</ShowError>
+				)}
+			</React.Fragment>
+		);
+	};
+
+	/**
+	 * Show loading animatiin while
+	 * articles load
+	 */
+	const showLoading = () => {
+		return <React.Fragment>{loading && <Loader />}</React.Fragment>;
+	};
+
+	/**
+	 * Show end of articles list
+	 */
+	const showEndOfList = () => {
+		return (
+			<React.Fragment>
+				{error &&
+				articles.length >= hits && (
+					<ShowError>End of articles</ShowError>
+				)}
 			</React.Fragment>
 		);
 	};
@@ -151,12 +198,11 @@ const HomePage = () => {
 	return (
 		<React.Fragment>
 			<div className='container'>
-				<div className='articles-container'>{showArticles()}</div>
-				{loading && <Loader />}
-				{error && <ShowError>No atricles</ShowError>}
+				{showArticles()}
+				{showLoading()}
+				{showError()}
+				{showEndOfList()}
 			</div>
-
-			{/* {JSON.stringify(articles)} */}
 		</React.Fragment>
 	);
 };

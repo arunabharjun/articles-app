@@ -9,6 +9,9 @@ const ArticleCard = ({ children }) => {
      */
 	const { headline, time, source, image, url, type } = children;
 
+	/**
+	 * Rendering the top banner image
+	 */
 	const bannerImage = () => {
 		return (
 			<React.Fragment>
@@ -29,6 +32,9 @@ const ArticleCard = ({ children }) => {
 		);
 	};
 
+	/**
+	 * Rendering the article information
+	 */
 	const articleContent = () => {
 		return (
 			<React.Fragment>
@@ -58,16 +64,20 @@ const ArticleCard = ({ children }) => {
 	/**
      * The full card
      */
-	return (
-		<React.Fragment>
-			<div className='article-card'>
-				<div className='article-card-body'>
-					{bannerImage()}
-					{articleContent()}
+	const articleCard = () => {
+		return (
+			<React.Fragment>
+				<div className='article-card'>
+					<div className='article-card-body'>
+						{bannerImage()}
+						{articleContent()}
+					</div>
 				</div>
-			</div>
-		</React.Fragment>
-	);
+			</React.Fragment>
+		);
+	};
+
+	return <React.Fragment>{articleCard()}</React.Fragment>;
 };
 
 export default ArticleCard;

@@ -1,9 +1,9 @@
-const ArticlePrice = ({ value }) => {
+const ArticlePrice = ({ value = 50 }) => {
 	const generatePrice = () => {
 		if (value >= 75) {
 			return (
 				<React.Fragment>
-					<span className='rupee-icon'>₹</span> 1000 onwards
+					<span className='rupee-icon'>₹</span> 999 onwards
 				</React.Fragment>
 			);
 		}
