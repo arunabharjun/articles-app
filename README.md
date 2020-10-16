@@ -70,7 +70,7 @@ npm install
 npm run dev
 ```
 
-The app should have opened in your default browser, but if it didn't, visit [http://localhost:3000/](http://localhost:3000/)
+Visit [http://localhost:3000/](http://localhost:3000/) to view the app.
 
 ## 🌟 Features
 
