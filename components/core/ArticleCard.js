@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import moment from 'moment';
 import RandomPrice from './RandomPrice';
 import LikeButton from './LikeButton';
 import { shrinkHeading } from '../../helpers/articles';
 
-export const ArticleCard = ({ children }) => {
+const ArticleCard = ({ children }) => {
 	/**
      * De-Structuring article keys
      */
@@ -70,3 +69,5 @@ export const ArticleCard = ({ children }) => {
 		</React.Fragment>
 	);
 };
+
+export default ArticleCard;

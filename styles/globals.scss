@@ -16,6 +16,7 @@
 	--card-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.04);
 	--navHeight: 56px;
 	--overlay-bg: rgba(0, 0, 0, 0.6);
+	--shimmer-loader: rgba(0, 0, 0, 0.06);
 	--transition-duration: all 0.3s ease;
 }
 
@@ -225,6 +226,18 @@ footer {
 	}
 }
 
+.loader {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.loading-card {
+	.loading-card-body {
+		border-radius: 5px;
+		height: 250px;
+		box-shadow: var(--card-shadow);
+	}
+}
 // small devices
 @media only screen and (max-width: 775px) {
 	.phone-hide {
@@ -243,6 +256,11 @@ footer {
 	.article-card {
 		width: 100%;
 		padding: 10px 0;
+	}
+
+	.loading-card {
+		padding: 10px 0;
+		width: 100%;
 	}
 }
 
@@ -277,5 +295,31 @@ footer {
 	.article-card {
 		padding: 10px;
 		width: calc(100% / 3);
+	}
+
+	.loading-card {
+		padding: 10px;
+		width: calc(100% / 3);
+	}
+}
+
+// shimmer loding
+.shimmer-loading {
+	animation: shimmer 2s infinite linear;
+	background: linear-gradient(
+		to right,
+		var(--nav-bg) 4%,
+		var(--shimmer-loader) 25%,
+		var(--nav-bg) 36%
+	);
+	background-size: 1000px 100%;
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
 	}
 }

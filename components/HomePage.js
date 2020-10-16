@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getArticles } from '../helpers/api';
 import { filterArticleData } from '../helpers/articles';
-import { ArticleCard } from './core/Card';
+import ArticleCard from './core/ArticleCard';
+import { Loader } from './core/Cards';
 
 const HomePage = () => {
 	/**
@@ -111,13 +112,12 @@ const HomePage = () => {
 	return (
 		<React.Fragment>
 			<div className='container'>
+				{loading && <Loader />}
 				{!loading && (
 					<div className='articles-container'>
 						{showArticles(articles)}
 					</div>
 				)}
-				{/* {!loading && JSON.stringify(articles[0])} */}
-				{loading && <p>Loading...</p>}
 			</div>
 		</React.Fragment>
 	);
