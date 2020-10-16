@@ -1,5 +1,5 @@
 import moment from 'moment';
-import RandomPrice from './RandomPrice';
+import ArticlePrice from './ArticlePrice';
 import LikeButton from './LikeButton';
 import { shrinkHeading } from '../../helpers/articles';
 
@@ -21,7 +21,7 @@ const ArticleCard = ({ children }) => {
 					</div>
 					<div className='overlay'>
 						<a href={url} target='_blank' rel='noopener noreferrer'>
-							<button>read</button>
+							<button>view</button>
 						</a>
 					</div>
 				</div>
@@ -44,7 +44,7 @@ const ArticleCard = ({ children }) => {
 
 					<div className='flex-box flex-space-bt'>
 						<p className='article-price'>
-							<RandomPrice />
+							<ArticlePrice value={headline.length} />
 						</p>
 						<span className='article-like-button'>
 							<LikeButton />

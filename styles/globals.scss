@@ -129,7 +129,6 @@ footer {
 	padding-top: 5px;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
 }
 
 .article-card {
@@ -236,6 +235,16 @@ footer {
 		border-radius: 5px;
 		height: 250px;
 		box-shadow: var(--card-shadow);
+	}
+}
+
+.error {
+	display: flex;
+	justify-content: center;
+	.error-msg {
+		color: var(--clr-muted-max);
+		font-size: 120%;
+		padding: 20px;
 	}
 }
 // small devices

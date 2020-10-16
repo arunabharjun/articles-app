@@ -3,6 +3,7 @@ import { getArticles } from '../helpers/api';
 import { filterArticleData } from '../helpers/articles';
 import ArticleCard from './core/ArticleCard';
 import { Loader } from './core/Cards';
+import ShowError from './core/ShowError';
 
 const HomePage = () => {
 	/**
@@ -12,30 +13,75 @@ const HomePage = () => {
 		articles,
 		setArticles
 	] = useState([]);
+	const [
+		page,
+		setPage
+	] = useState(0);
 
 	/**
 	 * State to check status of
 	 * loading and error
 	 */
 	const [
-		status,
-		setStatus
-	] = useState({
-		loading: true,
-		error: false
-	});
+		error,
+		setError
+	] = useState(false);
+	const [
+		loading,
+		setLoading
+	] = useState(false);
 
 	/**
-     * Destructuring Status
-     */
-	const { loading, error } = status;
+	 * State to check if bottom was reached
+	 */
+	const [
+		bottom,
+		setBottom
+	] = useState(false);
 
 	useEffect(() => {
 		/**
          * Load articles as soon as page loads
          */
+		window.addEventListener('scroll', () => handleScroll());
 		initArticles();
 	}, []);
+
+	useEffect(
+		() => {
+			/**
+			 * Paginate
+			 */
+			if (loading || error) return;
+			initArticles();
+		},
+		[
+			bottom
+		]
+	);
+
+	const handleScroll = () => {
+		const windowHeight =
+			'innerHeight' in window
+				? window.innerHeight
+				: document.documentElement.offsetHeight;
+		const body = document.body;
+		const html = document.documentElement;
+		const docHeight = Math.max(
+			body.scrollHeight,
+			body.offsetHeight,
+			html.clientHeight,
+			html.scrollHeight,
+			html.offsetHeight
+		);
+		const windowBottom = windowHeight + window.pageYOffset;
+		if (windowBottom >= docHeight) {
+			setBottom(true);
+		}
+		else {
+			setBottom(false);
+		}
+	};
 
 	/**
      * Utility function to load articles
@@ -44,27 +90,26 @@ const HomePage = () => {
 		/**
          * Set loading true before fetching articles
          */
-		setStatus({
-			...status,
-			loading: true,
-			error: false
-		});
-		getArticles()
+		setError(false);
+		setLoading(true);
+		getArticles('india', page)
 			.then((data) => {
-				if (!data.error) {
+				if (!data.error && data !== undefined) {
 					/**
                      * Set articles data if no error
                      */
-					setArticles(data);
+					setArticles([
+						...articles,
+						...data
+					]);
 
 					/**
                      * Reset statuses
                      */
-					setStatus({
-						...status,
-						loading: false,
-						error: false
-					});
+					setError(false);
+					setLoading(false);
+
+					setPage(page + 1);
 				}
 				else {
 					/**
@@ -72,11 +117,8 @@ const HomePage = () => {
                      * set loading to false &
                      * error to true
                      */
-					setStatus({
-						...status,
-						loading: false,
-						error: true
-					});
+					setError(true);
+					setLoading(false);
 				}
 			})
 			.catch((error) => {
@@ -87,20 +129,17 @@ const HomePage = () => {
                  * set loading to false &
                  * error to true
                  */
-				setStatus({
-					...status,
-					loading: false,
-					error: true
-				});
+				setError(true);
+				setLoading(false);
 			});
 	};
 
-	const showArticles = (articles) => {
+	const showArticles = () => {
 		return (
 			<React.Fragment>
-				{articles.map((article) => {
+				{articles.map((article, i) => {
 					return (
-						<ArticleCard id={article._id}>
+						<ArticleCard id={i}>
 							{filterArticleData(article)}
 						</ArticleCard>
 					);
@@ -112,13 +151,12 @@ const HomePage = () => {
 	return (
 		<React.Fragment>
 			<div className='container'>
+				<div className='articles-container'>{showArticles()}</div>
 				{loading && <Loader />}
-				{!loading && (
-					<div className='articles-container'>
-						{showArticles(articles)}
-					</div>
-				)}
+				{error && <ShowError>No atricles</ShowError>}
 			</div>
+
+			{/* {JSON.stringify(articles)} */}
 		</React.Fragment>
 	);
 };
