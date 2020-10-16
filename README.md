@@ -1,4 +1,5 @@
 # Articles Browsing app with infinite scrolling using Next.js
+## [APP LINK](https://articles-app.arunabharjun.vercel.app/)
 <!-- ![](screens/ScreenShot.png) -->
 
 ## ▶️ Getting Started
