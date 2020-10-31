@@ -139,7 +139,7 @@ const HomePage = () => {
 						}
 						else
 							return (
-								<div className='article-card' id={i}>
+								<div key={i}>
 									<ArticleCard>
 										{filterArticleData(article)}
 									</ArticleCard>
